@@ -1,0 +1,23 @@
+.card:hover {
+  cursor: pointer;
+}
+
+.card-container {
+  min-height: 165px;
+  max-height: 165px;
+}
+
+.comment-end {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.post-body-container {
+  max-height: 130px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}

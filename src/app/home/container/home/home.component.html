@@ -1,0 +1,123 @@
+<div class="container">
+  <div class="row justify-content-center mt-3">
+    <div class="col-12">
+      <div class="d-flex justify-content-between">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+                        <span class="input-group-text h-100" id="basic-addon1">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
+                                 width="16" height="16">
+                                <path
+                                  d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z">
+                            </path>
+                        </svg>
+                        </span>
+          </div>
+          <input type="text" class="form-control" placeholder="Search by title"
+                 aria-label="Search for Title"
+                 aria-describedby="basic-addon1" [formControl]="searchInput">
+        </div>
+        <button class="btn btn-primary mx-2 h-100" placement="bottom" ngbTooltip="Create Post"
+                (click)="createPostClicked()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+               class="bi bi-plus-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+            <path
+              d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-1">
+    <div class="col-12">
+      <button class="btn btn-primary" (click)="sortClicked()">
+        Date
+        <svg *ngIf="sortDirection === 'desc'" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+             fill="currentColor" class="bi bi-sort-down" viewBox="0 0 16 16">
+          <path
+            d="M3.5 2.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 11.293zm3.5 1a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5M7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1z"/>
+        </svg>
+        <svg *ngIf="sortDirection === 'asc'" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+             fill="currentColor" class="bi bi-sort-up" viewBox="0 0 16 16">
+          <path
+            d="M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.5.5 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5M7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div *ngIf="showEditor && tokenDecoderService.isTokenValid()">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-8">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control"
+                     [ngClass]="validateFormControl('title') ? 'is-invalid' : ''" placeholder="Title"
+                     aria-label="Title"
+                     aria-describedby="title" [formControl]="form.controls['title']">
+            </div>
+          </div>
+          <div class="col-4">
+            <div ngbDropdown class="d-inline-block">
+              <button type="button" class="btn btn-outline-secondary" id="topics" ngbDropdownToggle
+                      [ngClass]="{'is-invalid-btn': validateFormControl('topic')}">
+                {{ form.get("topic")!.value || "Select Topic" }}
+              </button>
+              <div ngbDropdownMenu aria-labelledby="topics">
+                <button *ngFor="let topic of topics" ngbDropdownItem
+                        [value]="topic" (click)="topicSelected(topic)">
+                  {{ topic }}
+                </button>
+              </div>
+            </div>
+            <div ngbDropdown class="d-inline-block mx-2">
+              <button type="button" class="btn btn-outline-secondary" id="subcategories"
+                      ngbDropdownToggle
+                      [ngClass]="{'is-invalid-btn': validateFormControl('subcategory')}">
+                {{ getSelectedSubcategory(form.get("subcategory")!.value || defaultSubCategoryId) }}
+              </button>
+              <div ngbDropdownMenu aria-labelledby="subcategories">
+                <button *ngFor="let subcategory of subcategories" ngbDropdownItem
+                        [value]="subcategory" (click)="subcategorySelected(subcategory)">
+                  <div placement="right" [ngbTooltip]="subcategory.description">{{ subcategory.name }}</div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <app-editor
+              [form]="form">
+            </app-editor>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-12 d-flex justify-content-end">
+            <button class="btn btn-primary h-100" style="width: 100px;" (click)="submitPost()">Post
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-start mt-3" *ngIf="posts.length > 0 else noContent">
+    <div class="col-12 col-xl-6 mt-xl-2" *ngFor="let post of posts">
+      <app-post-overview
+        [post]="post">
+      </app-post-overview>
+    </div>
+  </div>
+  <ng-template #noContent>
+    <div class="row" *ngIf="!loading">
+      <div class="col-12 text-center">
+        <span class="w-100">Could not find any posts! Be the first to create one!</span>
+      </div>
+    </div>
+  </ng-template>
+  <div class="row justify-content-center mt-5" *ngIf="loading">
+    <div class="spinner-border" role="status">
+    </div>
+  </div>
+</div>

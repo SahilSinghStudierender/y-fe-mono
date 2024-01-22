@@ -1,0 +1,7 @@
+<form [formGroup]="form">
+    <div class="NgxEditor__Wrapper">
+        <ngx-editor-menu [editor]="editor" [toolbar]="showMinimalToolbar ? minimalToolbar : toolbar"> </ngx-editor-menu>
+        <ngx-editor [editor]="editor" formControlName="editorContent"> </ngx-editor>
+    </div>
+    <small class="text-danger" *ngIf="validateFormControl()">There is no content!</small>
+</form>

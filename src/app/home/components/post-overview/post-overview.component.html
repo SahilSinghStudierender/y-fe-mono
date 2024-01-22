@@ -1,0 +1,15 @@
+<div class="card card-container" [ngClass]="onHover ? 'shadow' : ''" (mouseenter)="onHover = true" (mouseleave)="onHover = false" (click)="postClicked()">
+    <div class="card-body">
+        <div class="d-flex justify-content-between mb-3">
+            <div class="">
+                <span class="fw-bold">{{post.heading}}</span>
+                <span class="badge text-primary">{{post.topic}}</span>
+            </div>
+            <span>by {{post.userName}}, {{post.timestamp | date: 'dd.MM.YYYY HH:mm'}}</span>
+        </div>
+        <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(post.body)" class="post-body-container"></div>
+        <div class="comment-end">
+            <small>{{post.commentCount}} comment{{post.commentCount === 1 ? '' : 's'}}</small>
+        </div>
+    </div>
+</div>
