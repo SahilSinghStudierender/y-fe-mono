@@ -2,7 +2,7 @@
 <small>Total Comments: {{comments.length}}</small>
 <div class="mb-1">&nbsp;</div>
 
-<div class="row" *ngIf="tokenDecoderService.isTokenValid()">
+<div class="row">
     <div class="col-12">
         <app-editor
                 [showMinimalToolbar]="true"
@@ -20,7 +20,7 @@
         <div class="d-flex w-100 justify-content-between align-items-center">
             <div>
                 <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(comment.text)"></div>
-                <small>- {{comment.username}}, {{comment.timestamp | date: 'dd.MM.yy HH:mm'}}</small>
+                <small>- anonymous, {{comment.timestamp | date: 'dd.MM.yy HH:mm'}}</small>
             </div>
             <button class="btn btn-danger" *ngIf="comment.isDeletable" (click)="deleteComment(comment.id)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3"

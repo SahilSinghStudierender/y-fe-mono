@@ -1,5 +1,4 @@
 import { Component, OnDestroy } from "@angular/core";
-import { TokenDecoderService } from "../../../shared/service/token-decoder.service";
 import { PostService } from "../../service/post.service";
 import { PostDto } from "../../models/post-dto";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
@@ -35,7 +34,7 @@ export class HomeComponent implements OnDestroy {
         subcategory: new FormControl(this.defaultSubCategoryId, Validators.min(0))
     });
 
-    constructor(public tokenDecoderService: TokenDecoderService, private postService: PostService,
+    constructor(private postService: PostService,
                 private router: Router, private toastService: AppToastService) {
         // Setup Infinite Scroll
         const scrollEvents = fromEvent(window, "scroll");
@@ -132,12 +131,6 @@ export class HomeComponent implements OnDestroy {
     }
 
     createPostClicked() {
-        if (!this.tokenDecoderService.isTokenValid()) {
-            this.router.navigate(["/login"]).then(() => {
-                return;
-            });
-        }
-
         this.showEditor = true;
         this.getAllTopics();
         this.getAllSubcategories();
