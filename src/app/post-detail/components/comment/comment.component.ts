@@ -6,7 +6,6 @@ import { PostService } from "../../../home/service/post.service";
 import { AppToastService } from "../../../shared/service/app-toast.service";
 import { CreateCommentDto } from "../../../home/models/create-comment-dto";
 import { DomSanitizer } from "@angular/platform-browser";
-import { TokenDecoderService } from "../../../shared/service/token-decoder.service";
 
 @Component({
     selector: "app-comment",
@@ -22,7 +21,7 @@ export class CommentComponent {
     });
 
     constructor(private postService: PostService, private toastService: AppToastService,
-                public sanitizer: DomSanitizer, public tokenDecoderService: TokenDecoderService) {
+                public sanitizer: DomSanitizer) {
     }
 
 

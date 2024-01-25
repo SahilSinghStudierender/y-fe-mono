@@ -5,7 +5,7 @@
                 <span class="fw-bold">{{post.heading}}</span>
                 <span class="badge text-primary">{{post.topic}}</span>
             </div>
-            <span>by {{post.userName}}, {{post.timestamp | date: 'dd.MM.YYYY HH:mm'}}</span>
+            <span>by anonymous, {{post.timestamp | date: 'dd.MM.YYYY HH:mm'}}</span>
         </div>
         <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(post.body)" class="post-body-container"></div>
         <div class="comment-end">
