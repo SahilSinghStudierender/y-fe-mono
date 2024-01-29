@@ -60,17 +60,4 @@ export class CommentComponent {
             },
         });
     }
-
-    deleteComment(commentId: number) {
-        this.postService.deleteComment(commentId).subscribe({
-            next: () => {
-                this.toastService.show({ body: "Comment deleted!" });
-                this.comments = this.comments.filter((item) => item.id !== commentId);
-            },
-            error: (error) => {
-                console.error("Could not delete comment", error);
-                this.toastService.show({ body: "Could not delete comment, try again later!", error: true });
-            }
-        });
-    }
 }

@@ -50,12 +50,4 @@ export class PostService {
     public createCommentForPost(comment: CreateCommentDto): Observable<CommentDto> {
         return this.http.post<CommentDto>(`${environment.backendUrl}/comments`, comment);
     }
-
-    public deleteComment(commentId: number) {
-        return this.http.delete(`${environment.backendUrl}/comments/${commentId}`);
-    }
-
-    public deletePost(postId: number){
-        return this.http.delete(`${environment.backendUrl}/posts/${postId}`);
-    }
 }
