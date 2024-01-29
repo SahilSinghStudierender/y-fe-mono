@@ -20,7 +20,6 @@ export class PostDetailComponent implements OnInit {
     loadingPost = false;
     loadingComments = false;
     constructor(private route: ActivatedRoute, private postService: PostService,
-                private router: Router, private toastService: AppToastService,
                 public sanitizer: DomSanitizer) {
     }
 
@@ -51,20 +50,6 @@ export class PostDetailComponent implements OnInit {
             complete: () => {
                 this.loadingPost = false;
                 this.loadingComments = false;
-            }
-        });
-    }
-
-    deletePost(postId: number) {
-        this.postService.deletePost(postId).subscribe({
-            next: () => {
-                this.router.navigate(["/"]).then(() => {
-                    this.toastService.show({ body: "Post deleted!" });
-                });
-            },
-            error: (error) => {
-                console.error("Could not delete post", error);
-                this.toastService.show({ body: "Could not delete post, try again later!", error: true });
             }
         });
     }
