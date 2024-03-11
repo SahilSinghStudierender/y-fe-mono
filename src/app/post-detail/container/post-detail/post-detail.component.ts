@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { PostService } from "../../../home/service/post.service";
 import { defaultPost, PostDto } from "../../../home/models/post-dto";
 import { CommentDto } from "../../../home/models/comment-dto";
-import { AppToastService } from "../../../shared/service/app-toast.service";
 import { DomSanitizer } from "@angular/platform-browser";
+import { LocalStorageService } from "../../../shared/service/local-storage-service.service";
 
 @Component({
     selector: "app-post-detail",
@@ -19,8 +19,9 @@ export class PostDetailComponent implements OnInit {
     comments: CommentDto[] = [];
     loadingPost = false;
     loadingComments = false;
+
     constructor(private route: ActivatedRoute, private postService: PostService,
-                public sanitizer: DomSanitizer) {
+                public sanitizer: DomSanitizer, private localStorageService: LocalStorageService) {
     }
 
     ngOnInit(): void {
@@ -52,5 +53,17 @@ export class PostDetailComponent implements OnInit {
                 this.loadingComments = false;
             }
         });
+    }
+
+    postIsFavourite() {
+        return this.localStorageService.idExists(this.post.id);
+    }
+
+    setToFavourite() {
+        if (this.localStorageService.idExists(this.post.id)) {
+            this.localStorageService.deletePost(this.post.id);
+            return;
+        }
+        this.localStorageService.addPost(this.post);
     }
 }

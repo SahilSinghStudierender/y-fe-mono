@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="row justify-content-start mt-3" *ngIf="favouritePosts.length > 0 else noContent">
+        <div class="col-12 col-xl-6 mt-xl-2" *ngFor="let post of favouritePosts">
+            <app-post-overview
+                    [post]="post">
+            </app-post-overview>
+        </div>
+    </div>
+    <ng-template #noContent>
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <h3 class="w-100 fw-bold">You have not set any favourites!<br/>Go find some!</h3>
+            </div>
+        </div>
+    </ng-template>
+</div>

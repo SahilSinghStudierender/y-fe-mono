@@ -13,6 +13,7 @@ import { PostDetailComponent } from "./post-detail/container/post-detail/post-de
 import { CommentComponent } from "./post-detail/components/comment/comment.component";
 import { EditorComponent } from "./shared/components/editor/editor.component";
 import { NgxEditorModule } from "ngx-editor";
+import { FavouriteContainerComponent } from "./favourite/container/favourite/favourite-container.component";
 
 @NgModule({
     declarations: [
@@ -23,6 +24,7 @@ import { NgxEditorModule } from "ngx-editor";
         PostDetailComponent,
         CommentComponent,
         EditorComponent,
+        FavouriteContainerComponent,
     ],
     imports: [
         BrowserModule,
