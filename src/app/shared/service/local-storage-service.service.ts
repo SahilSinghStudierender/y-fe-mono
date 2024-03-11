@@ -1,45 +1,39 @@
 import { Injectable } from "@angular/core";
+import { PostDto } from "../../home/models/post-dto";
 
 @Injectable({
     providedIn: "root"
 })
 export class LocalStorageService {
 
-    setItem(key: string, value: any): void {
-        try {
-            const serializedValue = JSON.stringify(value);
-            localStorage.setItem(key, serializedValue);
-        } catch (e) {
-            console.error("Error saving to localStorage", e);
-        }
+    private localStorageKey = "favourite_posts";
+
+    addPost(post: PostDto): void {
+        const posts = this.getPosts();
+        posts.push(post);
+        this.savePostsToLocalStorage(posts);
     }
 
-    getItem<T>(key: string): T | null {
-        try {
-            const serializedItem = localStorage.getItem(key);
-            if (serializedItem === null) {
-                return null;
-            }
-            return JSON.parse(serializedItem) as T;
-        } catch (e) {
-            console.error("Error getting data from localStorage", e);
-            return null;
+    getPosts(): PostDto[] {
+        const postsJSON = localStorage.getItem(this.localStorageKey);
+        if (postsJSON) {
+            return JSON.parse(postsJSON);
         }
+        return [];
     }
 
-    removeItem(key: string): void {
-        try {
-            localStorage.removeItem(key);
-        } catch (e) {
-            console.error("Error removing item from localStorage", e);
-        }
+    deletePost(id: number): void {
+        let posts = this.getPosts();
+        posts = posts.filter((post) => post.id !== id);
+        this.savePostsToLocalStorage(posts);
     }
 
-    clear(): void {
-        try {
-            localStorage.clear();
-        } catch (e) {
-            console.error("Error clearing localStorage", e);
-        }
+    idExists(id: number): boolean {
+        const posts = this.getPosts();
+        return posts.some((post) => post.id === id);
+    }
+
+    private savePostsToLocalStorage(posts: PostDto[]): void {
+        localStorage.setItem(this.localStorageKey, JSON.stringify(posts));
     }
 }
