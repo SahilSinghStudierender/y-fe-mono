@@ -1,10 +1,9 @@
 import { Component, Input } from "@angular/core";
-import { CommentDto } from "../../../home/models/comment-dto";
+import { CommentDto } from "../../../shared/models/comment-dto";
 import { FormControl, FormGroup } from "@angular/forms";
 import { Validators } from "ngx-editor";
-import { PostService } from "../../../home/service/post.service";
-import { AppToastService } from "../../../shared/service/app-toast.service";
-import { CreateCommentDto } from "../../../home/models/create-comment-dto";
+import { PostService } from "../../../shared/service/post.service";
+import { CreateCommentDto } from "../../../shared/models/create-comment-dto";
 import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
@@ -20,7 +19,7 @@ export class CommentComponent {
         editorContent: new FormControl("", Validators.required()),
     });
 
-    constructor(private postService: PostService, private toastService: AppToastService,
+    constructor(private postService: PostService,
                 public sanitizer: DomSanitizer) {
     }
 
@@ -42,7 +41,6 @@ export class CommentComponent {
 
         this.postService.createCommentForPost(commentToCreate).subscribe({
             next: (comment) => {
-                this.toastService.show({ body: "Comment published!" });
                 this.comments.push(comment);
 
                 this.form.reset();
@@ -56,7 +54,6 @@ export class CommentComponent {
             },
             error: (error) => {
                 console.error("Could not publish comment", error);
-                this.toastService.show({ body: "Could not publish comment, try again later!", error: true });
             },
         });
     }

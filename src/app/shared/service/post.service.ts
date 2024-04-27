@@ -8,7 +8,7 @@ import { TopicDto } from "../models/topic-dto";
 import { SubcategoriesDto } from "../models/subcategories-dto";
 import { CreatePostDto } from "../models/create-post-dto";
 import { PageDto } from "../models/page-dto";
-import { PAGE_SIZE } from "../../shared/const/const";
+import { PAGE_SIZE } from "../const/const";
 import { CreateCommentDto } from "../models/create-comment-dto";
 
 @Injectable({

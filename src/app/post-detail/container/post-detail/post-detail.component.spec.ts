@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { PostDetailComponent } from "./post-detail.component";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { PostService } from "../../../home/service/post.service";
+import { PostService } from "../../../shared/service/post.service";
 import { RouterTestingModule } from "@angular/router/testing";
 
 describe("PostDetailComponent", () => {
@@ -26,4 +26,4 @@ describe("PostDetailComponent", () => {
         expect(component).toBeTruthy();
     });
 });
- 
+

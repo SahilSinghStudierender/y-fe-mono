@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { CommentComponent } from "./comment.component";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { PostService } from "../../../home/service/post.service";
+import { PostService } from "../../../shared/service/post.service";
 
 describe("CommentComponent", () => {
     let component: CommentComponent;
@@ -13,7 +13,7 @@ describe("CommentComponent", () => {
             imports: [HttpClientTestingModule],
             declarations: [CommentComponent],
             providers: [PostService]
-        }) 
+        })
             .compileComponents();
 
         fixture = TestBed.createComponent(CommentComponent);
@@ -24,4 +24,4 @@ describe("CommentComponent", () => {
     it("should create", () => {
         expect(component).toBeTruthy();
     });
-}); 
+});
