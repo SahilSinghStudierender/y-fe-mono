@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { PostDto } from "../../../home/models/post-dto";
+import { PostDto } from "../../../shared/models/post-dto";
 import { LocalStorageService } from "../../../shared/service/local-storage-service.service";
 
 @Component({

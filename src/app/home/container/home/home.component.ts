@@ -1,12 +1,11 @@
 import { Component, OnDestroy } from "@angular/core";
-import { PostService } from "../../service/post.service";
-import { PostDto } from "../../models/post-dto";
+import { PostService } from "../../../shared/service/post.service";
+import { PostDto } from "../../../shared/models/post-dto";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { debounceTime, distinctUntilChanged, fromEvent, Subscription } from "rxjs";
 import { Router } from "@angular/router";
 import { Validators as EditorValidators } from "ngx-editor";
-import { SubcategoriesDto } from "../../models/subcategories-dto";
-import { AppToastService } from "../../../shared/service/app-toast.service";
+import { SubcategoriesDto } from "../../../shared/models/subcategories-dto";
 
 @Component({
     selector: "app-home",
@@ -35,7 +34,7 @@ export class HomeComponent implements OnDestroy {
     });
 
     constructor(private postService: PostService,
-                private router: Router, private toastService: AppToastService) {
+                private router: Router) {
         // Setup Infinite Scroll
         const scrollEvents = fromEvent(window, "scroll");
         this.scrollSubscription = scrollEvents.pipe(
@@ -151,12 +150,11 @@ export class HomeComponent implements OnDestroy {
                 subCategoryId: this.form.get("subcategory")!.value!
             }).subscribe({
                 next: (newPost: PostDto) => {
-                    this.toastService.show({ body: "Post published!" });
                     this.showEditor = false;
                     this.posts.unshift(newPost);
                 },
-                error: () => {
-                    this.toastService.show({ body: "Could not publish your post, please try again later!", error: true });
+                error: (err) => {
+                    console.error("Error while creating post", err);
                 },
                 complete: () => {
                     this.form.reset();

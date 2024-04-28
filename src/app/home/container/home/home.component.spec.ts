@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { HomeComponent } from "./home.component";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { PostService } from "../../service/post.service";
+import { PostService } from "../../../shared/service/post.service";
 
 describe("HomeComponent", () => {
     let component: HomeComponent;

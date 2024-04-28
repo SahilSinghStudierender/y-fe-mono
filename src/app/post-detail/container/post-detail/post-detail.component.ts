@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { PostService } from "../../../home/service/post.service";
-import { defaultPost, PostDto } from "../../../home/models/post-dto";
-import { CommentDto } from "../../../home/models/comment-dto";
+import { PostService } from "../../../shared/service/post.service";
+import { defaultPost, PostDto } from "../../../shared/models/post-dto";
+import { CommentDto } from "../../../shared/models/comment-dto";
 import { DomSanitizer } from "@angular/platform-browser";
 import { LocalStorageService } from "../../../shared/service/local-storage-service.service";
 
